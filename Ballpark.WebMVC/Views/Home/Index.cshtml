@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<style>
+    .check {
+        color: white;
+    }
+
+    .btn {
+        height: 60px;
+        width: 400px;
+        font-size: 30px;
+        margin-top: 75px;
+        border: 3px solid white;
+    }
+
+    .column {
+        flex: 50%;
+    }
+</style>
+
+<div class="jumbotron">
+    <h1>Take Me Out to the</h1>
+    <h2>BALLPARK</h2>
+
+    <div class="mainOptions">
+
+        <div class="row">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="col-lg-12">
+                    <p><a class="btn btn-success" href='@Url.Action("Index", "Event")'>My Events &raquo;</a></p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

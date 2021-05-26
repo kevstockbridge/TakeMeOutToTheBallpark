@@ -1,0 +1,96 @@
+﻿@model IEnumerable<Ballpark.Models.Venue.VenueListItem>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>MLB Stadiums</h2>
+
+<style>
+    .venueLink {
+        color: white;
+    }
+
+    h2 {
+        text-align: center;
+        font-family: 'Gill Sans MT';
+        font-size: 70px;
+        margin-bottom: 25px;
+    }
+
+    .venueLink:hover {
+        font-weight: bold;
+        color: white;
+        text-decoration: none;
+    }
+
+    .tableHeader {
+        font-size: 20px;
+    }
+</style>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Add Venue", "Create")
+    </p>
+}
+
+@if (TempData.ContainsKey("SaveResult"))
+{
+    <div class="alert alert-success fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
+        </button>
+        @TempData["SaveResult"]
+    </div>
+}
+<table class="table">
+    <tr class="tableHeader">
+        <th>
+            @Html.DisplayNameFor(model => model.VenueName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearOpened)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Capacity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.VenueName, "Details", new { id = item.VenueID }, new { @class = "venueLink" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearOpened)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsActive)
+            </td>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.VenueID }, new { @class = "venueLink" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.VenueID }, new { @class = "venueLink" })
+                </td>
+            }
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,118 @@
+﻿@model IEnumerable<Ballpark.Models.Event.EventListItem>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>My Events</h2>
+
+<style>
+    .eventLink {
+        color: white;
+    }
+
+    h2 {
+        text-align: center;
+        font-family: 'Gill Sans MT';
+        font-size: 70px;
+    }
+
+    h5 {
+        text-align: center;
+        font-family: 'Gill Sans MT';
+        font-style: italic;
+        font-size: 20px;
+    }
+
+    .progress {
+        width: 700px;
+        height: 3em;
+        background-color: white;
+        border-radius: 1.5em;
+        color: white;
+        position: relative;
+        margin-bottom: 15px;
+        font-size: 18px;
+        margin-left: 20%;
+        margin-top: 25px;
+    }
+
+    .progress-bar {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        width: calc(var(--width, 0) * 3.33%);  
+        padding: 1em;
+        background-color: green;
+    }
+</style>
+
+<div class="progress">
+    <div class="progress-bar progress-bar-striped" style="--width: @ViewBag.VenueCount"></div>
+</div>
+
+<h5>~You've been to @ViewBag.VenueCount out of 30 MLB stadiums~</h5>
+
+<div class="addNew">
+<p>
+    @Html.ActionLink("Add Visit", "Create")
+</p>
+</div>
+
+@if  (TempData.ContainsKey("SaveResult"))
+{
+    <div class="alert alert-success fade in" role="alert">
+
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
+        </button>
+        @TempData["SaveResult"]
+    </div>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfGame)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VenueName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HomeTeam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AwayTeam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Result)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfGame)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VenueName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HomeTeam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AwayTeam)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Result)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EventID }, new { @class = "eventLink" }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EventID }, new { @class = "eventLink" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EventID }, new { @class = "eventLink" })
+        </td>
+    </tr>
+}
+</table>
+

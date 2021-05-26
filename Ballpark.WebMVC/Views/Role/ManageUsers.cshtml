@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "ManageUsers";
+}
+
+<h2>Manage User Roles</h2>
+@Html.ActionLink("Create New Role", "Create") | @Html.ActionLink("Manage User Role", "ManageUsers") | @Html.ActionLink("Back to List", "Index")
+<hr />
+
+<h3>Add Role</h3>
+
+<style>
+    input[type=text] {
+        color: black;
+    }
+
+    h2 {
+        font-size: 50px;
+    }
+
+    .dropdown {
+        color: black;
+    }
+</style>
+
+@using (Html.BeginForm("RoleAddToUser", "Role"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <p>
+        Username : @Html.TextBox("UserName")
+        @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, new { @class="dropdown" })
+    </p>
+
+    <input style="color:black;" type="submit" value="Add" />
+}
+<hr />
+<h3>See User Roles</h3>
+@using (Html.BeginForm("GetRoles", "Role"))
+{
+    @Html.AntiForgeryToken()
+    <p>
+        Username : @Html.TextBox("UserName") <br /> <br />
+        <input style="color:black;" type="submit" value="Get Roles for this User" />
+    </p>
+}
+
+@if (ViewBag.RolesForThisUser != null)
+{
+    <div>
+        <h3>Roles</h3>
+        <ol>
+            @foreach (string s in ViewBag.RolesForThisUser)
+            {
+                <li>@s</li>
+            }
+        </ol>
+    </div>
+}
+
+<hr />
+<h3>Remove Role</h3>
+
+@using (Html.BeginForm("DeleteRoleForUser", "Role"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <p>
+        Username : @Html.TextBox("UserName")
+        @Html.DropDownList("RoleName", (IEnumerable<SelectListItem>)ViewBag.Roles, new { @class = "dropdown" })
+
+    </p>
+
+    <input style="color:black;" type="submit" value="Delete" />
+}

@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "GetVisitedVenues";
+}
+
+<h2>My Progress Bar</h2>
+
+<style>
+    .progress {
+        width: 700px;
+        height: 3em;
+        background-color: #111;
+        border-radius: 1.5em;
+        color: white;
+        position: relative;
+        margin-bottom: 15px;
+        font-size: 18px;
+    }
+
+    .progress-bar {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        width: calc(var(--width, 0) * 3.33%);  
+        padding: 1em;
+    }
+</style>
+
+<div class="progress">
+    <div class="progress-bar progress-bar-striped" style="--width: @ViewBag.VenueCount">@ViewBag.VenueCount out of 30</div>
+</div>
+

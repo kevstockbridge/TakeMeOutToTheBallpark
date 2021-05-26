@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Ballpark.Models.Team.TeamListItem>
+
+@{
+    ViewBag.Title = "Teams";
+}
+
+<h2>MLB Teams</h2>
+
+<style>
+    h2 {
+        text-align: center;
+        font-family: 'Gill Sans MT';
+        font-size: 70px;
+        margin-bottom: 30px;
+    }
+
+    .teamLink {
+        color: white;
+    }
+
+        .teamLink:hover {
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+    .tableHeader {
+        font-size: 20px;
+    }
+</style>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Add Team", "Create")
+    </p>
+}
+
+@if (TempData.ContainsKey("SaveResult"))
+{
+    <div class="alert alert-info fade in" role="alert">
+
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
+        </button>
+        @TempData["SaveResult"]
+    </div>
+}
+<table class="table">
+    <tr class="tableHeader">
+        <th>
+            Team Name
+        </th>
+        <th>
+            Home Venue
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.TeamName, "Details", new { id = item.TeamID }, new { @class = "teamLink" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VenueName)
+            </td>
+            @if (User.IsInRole("Admin"))
+            {
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.TeamID }, new { @class = "teamLink" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.TeamID }, new { @class = "teamLink" })
+            </td>
+            }
+        </tr>
+    }
+
+</table>

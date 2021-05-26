@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Ballpark.Models.ProfileListItem>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Profile</h2>
+
+<style>
+    .profileLink {
+        color: white;
+    }
+
+    h2 {
+        text-align: center;
+        font-family: 'Gill Sans MT';
+        font-size: 70px;
+        margin-bottom: 30px;
+    }
+
+    .profileLink:hover {
+        font-weight: bold;
+        color: white;
+    }
+
+    .tableHeader {
+        font-size: 20px;
+    }
+</style>
+
+@if (TempData.ContainsKey("SaveResult"))
+{
+    <div class="alert alert-success fade in" role="alert">
+
+        <button type="button" class="close" data-dismiss="alert">
+            <span>&times;</span>
+        </button>
+        @TempData["SaveResult"]
+    </div>
+}
+
+<div class="addNew">
+    <p>
+        @Html.ActionLink("Add Profile", "Create")
+    </p>
+</div>
+
+<table class="table">
+    <tr class="tableHeader">
+        <th>
+            @Html.DisplayNameFor(model => model.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FavTeam)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedUtc)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.FullName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FavTeam)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.CreatedUtc)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ProfileID }, new { @class = "profileLink" }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ProfileID }, new { @class = "profileLink" }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ProfileID }, new { @class = "profileLink" })
+    </td>
+</tr>
+    }
+
+</table>
+
+
