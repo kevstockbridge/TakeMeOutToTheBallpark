@@ -5,7 +5,7 @@ Eleven Fifty Academy - Red Badge Final Project
 “Take Me Out to the Ballpark” gives sports fans the opportunity to log and track each trip to a professional stadium. For some the ultimate goal is to hit every stadium, but for others this app can be used to look back at some of your favorite memories while attending professional sporting events.
 
 ## Author
-Kevin Stockbridge
+Kev Stockbridge
 
 ## Technology Used
 
